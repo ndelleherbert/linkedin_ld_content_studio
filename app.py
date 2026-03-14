@@ -34,6 +34,13 @@ for item in st.session_state.history[-5:]:
         st.session_state.research_text = item["research"]
         st.session_state.summary_text = item["summary"]
         st.session_state.post_text = item["post"]
+    
+if st.sidebar.button("Clear All"):
+    st.session_state.research_text = ""
+    st.session_state.summary_text = ""
+    st.session_state.post_text = ""
+    st.rerun()
+
 
 # -------------------------
 # INPUT PANEL
@@ -144,6 +151,7 @@ with col2:
         summary,
         file_name="summary.txt"
     )
+
 # Post
 with col3:
     st.subheader("LinkedIn Post")
