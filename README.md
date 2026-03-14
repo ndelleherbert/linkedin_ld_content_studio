@@ -404,7 +404,6 @@ Future improvements could include:
 * **Analytics for engagement optimization**
 
 ---
-
 # Learning Objectives
 
 This project demonstrates practical skills in:
