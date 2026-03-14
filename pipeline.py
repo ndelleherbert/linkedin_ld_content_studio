@@ -1,10 +1,15 @@
-from openai import OpenAI
 import os
+import anthropic
+from dotenv import load_dotenv
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+load_dotenv()
+
+client = anthropic.Anthropic(
+    api_key=os.getenv("ANTHROPIC_API_KEY")
+)
 
 # -------------------------
-# 1. Research Step
+# Research Step
 # -------------------------
 def research_topic(topic):
 
@@ -21,16 +26,19 @@ def research_topic(topic):
     5. Risks or Limitations
     """
 
-    response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=prompt
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=800,
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
     )
 
-    return response.output_text
+    return response.content[0].text
 
 
 # -------------------------
-# 2. Summary Step
+# Summary Step
 # -------------------------
 def summarize_research(research_text, include_counterpoint=False):
 
@@ -45,16 +53,19 @@ def summarize_research(research_text, include_counterpoint=False):
     {research_text}
     """
 
-    response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=prompt
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=400,
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
     )
 
-    return response.output_text
+    return response.content[0].text
 
 
 # -------------------------
-# 3. LinkedIn Post Step
+# LinkedIn Post Step
 # -------------------------
 def create_linkedin_post(topic, summary_text, audience, tone):
 
@@ -75,9 +86,12 @@ def create_linkedin_post(topic, summary_text, audience, tone):
     - Include 3 relevant hashtags
     """
 
-    response = client.responses.create(
-        model="gpt-4.1-mini",
-        input=prompt
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=400,
+        messages=[
+            {"role": "user", "content": prompt}
+        ]
     )
 
-    return response.output_text
+    return response.content[0].text
