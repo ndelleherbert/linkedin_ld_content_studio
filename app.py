@@ -144,7 +144,6 @@ with col2:
         summary,
         file_name="summary.txt"
     )
-
 # Post
 with col3:
     st.subheader("LinkedIn Post")
